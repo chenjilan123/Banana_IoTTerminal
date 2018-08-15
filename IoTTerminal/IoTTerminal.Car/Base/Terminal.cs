@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IoTTerminal.Car
 {
-    public class Terminal
+    public abstract class Terminal
     {
         #region Field
         private string ip;
@@ -66,6 +66,10 @@ namespace IoTTerminal.Car
         #endregion
 
         #region Heartbeat
+
+        #endregion
+
+        #region Position
 
         #endregion
 

@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JTB1076Terminal.cs" />
+    <Compile Include="JTB808Terminal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Terminal.cs" />
+    <Compile Include="Base\Terminal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IoTTerminal.Communication\IoTTerminal.Communication.csproj">
