@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTTerminal", "IoTTerminal\IoTTerminal.csproj", "{C3BC13A4-55D8-4475-89DD-C1B375DCEA0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTTerminal.Car", "IoTTerminal.Car\IoTTerminal.Car.csproj", "{5790FCC0-D046-4A2F-83D0-69F3F430C2AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTTerminal.Communication", "IoTTerminal.Communication\IoTTerminal.Communication.csproj", "{946A8708-A502-490B-90EC-F325DC55B18E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C3BC13A4-55D8-4475-89DD-C1B375DCEA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3BC13A4-55D8-4475-89DD-C1B375DCEA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3BC13A4-55D8-4475-89DD-C1B375DCEA0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5790FCC0-D046-4A2F-83D0-69F3F430C2AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5790FCC0-D046-4A2F-83D0-69F3F430C2AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5790FCC0-D046-4A2F-83D0-69F3F430C2AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5790FCC0-D046-4A2F-83D0-69F3F430C2AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{946A8708-A502-490B-90EC-F325DC55B18E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{946A8708-A502-490B-90EC-F325DC55B18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{946A8708-A502-490B-90EC-F325DC55B18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{946A8708-A502-490B-90EC-F325DC55B18E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
