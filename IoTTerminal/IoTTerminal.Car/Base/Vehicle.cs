@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace IoTTerminal.Car
 {
-    public abstract class Terminal
+    public abstract class Vehicle
     {
         #region Field
-        private string ip;
-        private int port;
-        private string platenum;
-        private string platecolor;
-        private string simnum;
+        protected string ip;
+        protected int port;
+        protected string platenum;
+        protected string platecolor;
+        protected string simnum;
         #endregion
 
         #region Main Property
@@ -45,7 +45,7 @@ namespace IoTTerminal.Car
         #endregion
 
         #region Constructor
-        public Terminal(string ip, int port, string platenum, string platecolor, string simnum)
+        public Vehicle(string ip, int port, string platenum, string platecolor, string simnum)
         {
             this.ip = ip;
             this.port = port;
@@ -53,26 +53,6 @@ namespace IoTTerminal.Car
             this.platecolor = platecolor;
             this.simnum = simnum;
         }
-        #endregion
-
-        #region Base Orders
-
-        #region Register
-
-        #endregion
-
-        #region Authentication
-
-        #endregion
-
-        #region Heartbeat
-
-        #endregion
-
-        #region Position
-
-        #endregion
-
         #endregion
     }
 }

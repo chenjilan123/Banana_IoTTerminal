@@ -1,4 +1,5 @@
 ﻿using IoTTerminal.Car;
+using IoTTerminal.DI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,21 +23,26 @@ namespace IoTTerminal
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string defaultPlateNumber = "闽A66566";
+        private const string defaultPlateColor = "蓝";
+        private const string defaultSimNumber = "13100000001";
+        private string ip;
+        private int port;
+        private JTB1076Terminal jtb1076 = null;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            DependencyInjection();
+            //如果是长时间操作，别放这里，应放加载事件。
+            IoTContainer.Register();
+            jtb1076 = new JTB1076Terminal(ip, port, defaultPlateNumber, defaultPlateColor, defaultSimNumber);
         }
+        
 
-        private void DependencyInjection()
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            IUnityContainer c = new UnityContainer();
-            c.RegisterType<Terminal, JTB1076Terminal>();
-            c.RegisterType<Terminal, JTB1076Terminal>("JTB1076");
-            c.RegisterType<Terminal, JTB808Terminal>("JTB808");
-
-            //var x= c.Resolve<Terminal>();
+            jtb1076?.Register();
         }
     }
 }
