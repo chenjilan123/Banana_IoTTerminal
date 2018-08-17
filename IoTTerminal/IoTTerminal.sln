@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTTerminal.Car", "IoTTermi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTTerminal.Communication", "IoTTerminal.Communication\IoTTerminal.Communication.csproj", "{946A8708-A502-490B-90EC-F325DC55B18E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{51776CDC-8E81-4D1B-B512-B4EB1385FF4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{946A8708-A502-490B-90EC-F325DC55B18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{946A8708-A502-490B-90EC-F325DC55B18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{946A8708-A502-490B-90EC-F325DC55B18E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51776CDC-8E81-4D1B-B512-B4EB1385FF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51776CDC-8E81-4D1B-B512-B4EB1385FF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51776CDC-8E81-4D1B-B512-B4EB1385FF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51776CDC-8E81-4D1B-B512-B4EB1385FF4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
