@@ -1,4 +1,5 @@
 ﻿using IoTTerminal.Communication;
+using IoTTerminal.Communication.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace IoTTerminal.Car
     {
         private readonly IOrderProvider iOrderProvider;
         #region Constructor
-        public JTB808Terminal(string ip, int port, string platenum, string platecolor, string simnum)
-            : base(ip, port, platenum, platecolor, simnum)
+        public JTB808Terminal(string ip, int port, string platenum, byte platecolor, string simnum, string terminalID)
+            : base(ip, port, platenum, platecolor, simnum, terminalID)
         {
-            iOrderProvider = new JTB808OrderProvider(simnum);
+            iOrderProvider = new JTB808OrderProvider(simnum, ip, port);
         }
         #endregion
 
@@ -23,7 +24,7 @@ namespace IoTTerminal.Car
         #region Register
         public void Register()
         {
-            iOrderProvider.Register(this.platenum, this.platecolor, this.ip, this.port);
+            iOrderProvider.Register(0, 0, "12321", "1", this.platenum, this.platecolor);
         }
         #endregion
 

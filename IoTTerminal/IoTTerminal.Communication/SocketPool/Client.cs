@@ -13,6 +13,8 @@ namespace IoTTerminal.Communication.SocketPool
     /// Send data bytes and receive data bytes.
     /// There aren't any entities or value is allow to process in this object packaging.
     /// Only byte arrays should be input or output.
+    /// 
+    /// The performance must be optimizing.
     /// </summary>
     public class Client
     {
@@ -28,11 +30,11 @@ namespace IoTTerminal.Communication.SocketPool
             this.dataObject = new DataObject();
         }
 
-        public async Task ConnectAsync()
+        public void Connect()
         {
             if (!socket.Connected)
             {
-                await socket.ConnectAsync(ip, port);
+                socket.Connect(ip, port);
                 var receiveTask = new Task(ReceiveTask);
                 receiveTask.Start();
             }
@@ -48,19 +50,12 @@ namespace IoTTerminal.Communication.SocketPool
             var receiveSegment = new ArraySegment<byte>(new byte[1024]);
             while (true)
             {
-                if (!socket.Connected)
-                    break;
                 var count = await socket.ReceiveAsync(receiveSegment, SocketFlags.None);
                 if (count > 0)
                 {
-                    ReceiveData(receiveSegment.Array, count);
+                    dataObject.PushData(receiveSegment.Array, count);
                 }
             }
-        }
-
-        private void ReceiveData(byte[] data, int count)
-        {
-
         }
     }
 }

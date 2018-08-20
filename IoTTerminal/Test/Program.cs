@@ -36,7 +36,7 @@ namespace Test
         private static async void ListenToServer()
         {
             AutoResetEvent allDone = new AutoResetEvent(false);
-            IPHostEntry hostInfo = Dns.Resolve(Dns.GetHostName());//.NET Core AddressList的第一个元素为InterNetworkV6
+            IPHostEntry hostInfo = Dns.GetHostEntry(Dns.GetHostName());//.NET Core AddressList的第一个元素为InterNetworkV6
             IPAddress ipAddress = null;
             foreach (var address in hostInfo.AddressList)
             {
@@ -49,8 +49,7 @@ namespace Test
             var client = new Client(ipAddress.ToString(), 9099);
             try
             {
-
-                await client.ConnectAsync();
+                client.Connect();
                 allDone.WaitOne();
             }
             catch (Exception ex)

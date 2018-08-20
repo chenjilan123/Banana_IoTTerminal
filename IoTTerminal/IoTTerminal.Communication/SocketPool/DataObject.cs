@@ -16,5 +16,10 @@ namespace IoTTerminal.Communication.SocketPool
                 return dataLst.Count > 0;
             }
         }
+
+        public void PushData(byte[] data, int count)
+        {
+
+        }
     }
 }

@@ -24,8 +24,9 @@ namespace IoTTerminal
     public partial class MainWindow : Window
     {
         private const string defaultPlateNumber = "闽A66566";
-        private const string defaultPlateColor = "蓝";
+        private const byte defaultPlateColor = 2;
         private const string defaultSimNumber = "13100000001";
+        private const string defaultTerminalID = "AB10101";
         private string ip;
         private int port;
         private JTB1076Terminal jtb1076 = null;
@@ -36,7 +37,7 @@ namespace IoTTerminal
 
             //如果是长时间操作，别放这里，应放加载事件。
             IoTContainer.Register();
-            jtb1076 = new JTB1076Terminal(ip, port, defaultPlateNumber, defaultPlateColor, defaultSimNumber);
+            jtb1076 = new JTB1076Terminal(ip, port, defaultPlateNumber, defaultPlateColor, defaultSimNumber, defaultTerminalID);
         }
         
 

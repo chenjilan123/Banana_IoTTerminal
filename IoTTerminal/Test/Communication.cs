@@ -30,8 +30,7 @@ namespace Test
             var client = new Client(ipAddress.ToString(), 9099);
             try
             {
-
-                await client.ConnectAsync();
+                client.Connect();
                 allDone.WaitOne();
             }
             catch (Exception ex)

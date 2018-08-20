@@ -12,8 +12,9 @@ namespace IoTTerminal.Car
         protected string ip;
         protected int port;
         protected string platenum;
-        protected string platecolor;
+        protected byte platecolor;
         protected string simnum;
+        protected string terminalID;
         #endregion
 
         #region Main Property
@@ -32,7 +33,7 @@ namespace IoTTerminal.Car
             get { return platenum; }
         }
 
-        public string PlateColor
+        public byte PlateColor
         {
             get { return platecolor; }
         }
@@ -45,13 +46,14 @@ namespace IoTTerminal.Car
         #endregion
 
         #region Constructor
-        public Vehicle(string ip, int port, string platenum, string platecolor, string simnum)
+        public Vehicle(string ip, int port, string platenum, byte platecolor, string simnum, string terminalID)
         {
             this.ip = ip;
             this.port = port;
             this.platenum = platenum;
             this.platecolor = platecolor;
             this.simnum = simnum;
+            this.terminalID = terminalID;
         }
         #endregion
     }
