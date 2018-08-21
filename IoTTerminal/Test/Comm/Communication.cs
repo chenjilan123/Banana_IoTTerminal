@@ -9,15 +9,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Test
+namespace Test.Comm
 {
     public class Communication
     {
-        [Fact]
-        public async void Socket_TEST()
+        //[Fact]
+        //Network communication don't use Unit Test.
+        public void Socket_TEST()
         {
             AutoResetEvent allDone = new AutoResetEvent(false);
-            IPHostEntry hostInfo = Dns.Resolve(Dns.GetHostName());//.NET Core AddressList的第一个元素为InterNetworkV6
+            IPHostEntry hostInfo = Dns.GetHostEntry(Dns.GetHostName());//.NET Core AddressList的第一个元素为InterNetworkV6
             IPAddress ipAddress = null;
             foreach (var address in hostInfo.AddressList)
             {

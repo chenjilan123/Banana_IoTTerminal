@@ -53,6 +53,7 @@
     <Compile Include="SocketPool\Client.cs" />
     <Compile Include="Utinity\DataDecoder.cs" />
     <Compile Include="Utinity\DataEncoder.cs" />
+    <Compile Include="Utinity\HexTransfer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />

@@ -1,4 +1,5 @@
-﻿using IoTTerminal.Communication.SocketPool;
+﻿using IoTTerminal.Car;
+using IoTTerminal.Communication.SocketPool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,16 @@ namespace Test
     {
         static void Main()
         {
+            JTB808Terminal terminal = new JTB808Terminal("218.5.10.82", 21005, "鄂A56789", 2, "13800000001", "A100001");
+            terminal.Register();
+
+            Console.ReadLine();
+        }
+
+
+        #region StartListen
+        private static void StartListen()
+        {
             var taskLst = new List<Task>();
             for (int i = 0; i < 5; i++)
             {
@@ -27,13 +38,12 @@ namespace Test
             Console.ReadLine();
         }
 
-
         private static Task ListenTask()
         {
             return new Task(ListenToServer);
         }
 
-        private static async void ListenToServer()
+        private static void ListenToServer()
         {
             AutoResetEvent allDone = new AutoResetEvent(false);
             IPHostEntry hostInfo = Dns.GetHostEntry(Dns.GetHostName());//.NET Core AddressList的第一个元素为InterNetworkV6
@@ -58,5 +68,6 @@ namespace Test
                 e += "1";
             }
         }
+        #endregion
     }
 }

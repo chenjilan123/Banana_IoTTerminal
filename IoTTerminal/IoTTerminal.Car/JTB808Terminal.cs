@@ -11,6 +11,7 @@ namespace IoTTerminal.Car
     public class JTB808Terminal : Vehicle
     {
         private readonly IOrderProvider iOrderProvider;
+
         #region Constructor
         public JTB808Terminal(string ip, int port, string platenum, byte platecolor, string simnum, string terminalID)
             : base(ip, port, platenum, platecolor, simnum, terminalID)

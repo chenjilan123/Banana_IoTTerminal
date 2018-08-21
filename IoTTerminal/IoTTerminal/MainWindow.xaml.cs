@@ -27,8 +27,8 @@ namespace IoTTerminal
         private const byte defaultPlateColor = 2;
         private const string defaultSimNumber = "13100000001";
         private const string defaultTerminalID = "AB10101";
-        private string ip;
-        private int port;
+        private string ip = "127.0.0.1";
+        private int port = 8085;
         private JTB1076Terminal jtb1076 = null;
 
         public MainWindow()
