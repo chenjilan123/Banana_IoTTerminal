@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoTTerminal.Communication.Utinity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,17 @@ namespace IoTTerminal.Communication.SocketPool
 
         public void PushData(byte[] data, int count)
         {
+            var receiveData = new byte[count];
+            Array.Copy(data, 0, receiveData, 0, count);
 
+
+            //======================== Test Area ======================================
+
+
+            HexTransfer trans = new HexTransfer();
+            var hexStr = trans.GetHex(receiveData);
+
+            //=========================================================================
         }
     }
 }

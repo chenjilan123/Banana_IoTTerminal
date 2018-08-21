@@ -76,7 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comm\Communication.cs" />
-    <Compile Include="Comm\DataTransfer.cs" />
+    <Compile Include="Comm\Utility\DataEncode.cs" />
+    <Compile Include="Comm\Utility\DataTransfer.cs" />
+    <Compile Include="Comm\UpOrder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

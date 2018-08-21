@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderProviderFactory.cs" />
     <Compile Include="Orders\DownOrderParser.cs" />
     <Compile Include="Interface\Down\IDownOrderParser.cs" />
     <Compile Include="Interface\Down\IDownOrderProvider.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="JTB808OrderProvider.cs" />
     <Compile Include="Interface\Up\IUpOrderPacker.cs" />
     <Compile Include="Interface\Up\IUpOrderProvider.cs" />
+    <Compile Include="Orders\MessageID.cs" />
     <Compile Include="Orders\UpOrderPacker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketPool\DataObject.cs" />

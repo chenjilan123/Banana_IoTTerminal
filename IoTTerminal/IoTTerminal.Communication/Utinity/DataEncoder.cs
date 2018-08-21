@@ -8,18 +8,55 @@ namespace IoTTerminal.Communication.Utinity
 {
     public class DataEncoder
     {
-        internal byte[] Encode(int input)
+        private byte[] ReverseInLittleEndian(byte[] data)
         {
-            return BitConverter.IsLittleEndian ? BitConverter.GetBytes(input).Reverse().ToArray() : BitConverter.GetBytes(input);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            return data;
         }
-        internal byte[] Encode(long input)
+        public byte[] Encode(int input)
         {
-            return BitConverter.IsLittleEndian ? BitConverter.GetBytes(input).Reverse().ToArray() : BitConverter.GetBytes(input);
+            return ReverseInLittleEndian(BitConverter.GetBytes(input));
         }
-        internal byte[] Encode(string input)
+        public byte[] Encode(long input)
         {
-            return null;
+            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+        }
+        public byte[] Encode(uint input)
+        {
+            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+        }
+        public byte[] Encode(ushort input)
+        {
+            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+        }
+        public byte[] Encode(short input)
+        {
+            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+        }
+        public byte[] Encode(string input, int length, bool padLeft = false)
+        {
+            if (input.Length > length)
+                input = input.Substring(0, length);
+            else if (input.Length < length)
+                input = padLeft ? input.PadLeft(length, '0') : input.PadRight(length, '\0');
+            return Encoding.ASCII.GetBytes(input);
+        }
+        public byte[] EncodeString(string input)
+        {
+            return Encoding.GetEncoding("gb2312").GetBytes(input);
         }
 
+        public byte[] EncodeBCD(string simnum, int length)
+        {
+            if (simnum.Length > length)
+                simnum = simnum.Substring(0, length);
+            else if (simnum.Length < length)
+                simnum = simnum.PadLeft(length, '0');
+            var outData = new byte[length / 2];
+            for (int i = 0; i < outData.Length ; i++)
+                outData[i] = Convert.ToByte(simnum.Substring(i * 2, 2), 16);
+            return outData;
+        }
     }
 }

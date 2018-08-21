@@ -35,6 +35,9 @@ namespace IoTTerminal.Communication
         private readonly int port;
         private readonly IDownOrderParser parser;
         private readonly IUpOrderPacker packer;
+        private string authenticationCode;
+        private bool IsRegisted = false;
+        private bool IsAuthenticated = false;
         private Client client;
         #endregion
 
@@ -57,28 +60,34 @@ namespace IoTTerminal.Communication
         #endregion
 
         #region Up Command to Platform
-        public void Register(long provinceID, long cityID, string producerID, string terminalType, string platenum, byte platecolor)
+        private void SendAsync(byte[] data)
         {
-            client.Connect();
-            var data = packer.Register(provinceID, cityID, producerID, terminalType, platenum, platecolor);
             client.SendAsync(data);
         }
+        public void Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor)
+        {
+            client.Connect();
+            var data = packer.Register(provinceID, cityID, producerID, terminalType, terminalID, platenum, platecolor);
+            SendAsync(data);
+        }
+
+
         public void Authentication(string authenticationNumber)
         {
             var data = packer.Authentication(authenticationNumber);
-            client.SendAsync(data);
+            SendAsync(data);
         }
 
         public void Heartbeat()
         {
             var data = packer.Heartbeat();
-            client.SendAsync(data);
+            SendAsync(data);
         }
 
         public void Position()
         {
             var data = packer.Position();
-            client.SendAsync(data);
+            SendAsync(data);
         }
         
         #endregion

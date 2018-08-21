@@ -23,5 +23,6 @@ namespace Test.Comm
             var outStr = transfer.GetHex(data);
             Assert.Equal(input.Replace("0x", "").ToUpper(), outStr.ToUpper());
         }
+        
     }
 }
