@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace IoTTerminal.Communication.Orders
 {
-    public enum MessageID : ushort
+    public enum DownMessageID : ushort
     {
-        //=============================== Up ================================================
-        Register = 0x0100,
-
-
         //=============================== Down ==============================================
+        PlatCommonResponse = 0x8001,
         RegisterResponse = 0x8100,
+        SetTerminalParameter = 0x8103,
+        SearchTerminalParameter = 0x8104,
+        SearchSpecificTerminalParameter = 0x8106,
+
     }
 }

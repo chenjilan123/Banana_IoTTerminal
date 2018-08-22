@@ -9,5 +9,6 @@ namespace IoTTerminal.Communication.Orders
 {
     public class DownOrderParser : IDownOrderParser
     {
+
     }
 }
