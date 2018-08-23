@@ -8,19 +8,30 @@ using System.Threading.Tasks;
 
 namespace IoTTerminal.Car
 {
-    public class JTB808Terminal : Vehicle
+    public class JTB808Terminal : Vehicle, IDownOrderReceiver
     {
-        private readonly IOrderProvider iOrderProvider;
+        #region Field
+        private readonly IUpOrderSender iOrderProvider;
+        private bool isRegisted = false;
+        private bool isAuthenticated = false;
+        private string authenticationCode = string.Empty;
+        #endregion
+
+        #region Property
+        public bool IsRegisted => isRegisted;
+
+        public bool IsAuthenticated => isAuthenticated;
+        #endregion
 
         #region Constructor
         public JTB808Terminal(string ip, int port, string platenum, byte platecolor, string simnum, string terminalID)
             : base(ip, port, platenum, platecolor, simnum, terminalID)
         {
-            iOrderProvider = OrderProviderFactory.CreateOrderProvider(simnum, ip, port);
+            iOrderProvider = OrderProviderFactory.CreateOrderProvider(simnum, ip, port, this);
         }
         #endregion
 
-        #region Base Orders
+        #region Sender
 
         #region Register
         public void Register()
@@ -32,14 +43,14 @@ namespace IoTTerminal.Car
         #region Authentication
         public void Authentication()
         {
-
+            iOrderProvider.Authentication(authenticationCode);
         }
         #endregion
 
         #region Heartbeat
         public void Heartbeat()
         {
-
+            iOrderProvider.Heartbeat();
         }
         #endregion
 
@@ -49,6 +60,28 @@ namespace IoTTerminal.Car
 
         }
         #endregion
+
+        #endregion
+
+        #region Receiver
+
+        #region RegisterResponse
+        public void RegisterResponse(ushort responseOrderID, byte result, string authentication)
+        {
+            this.authenticationCode = authentication;
+            this.isRegisted = (result == 0);
+
+            //Auth 
+            this.Authentication();
+        }
+
+        public void PlatCommonResponse(ushort responseOrderID, byte result)
+        {
+
+        }
+        #endregion
+
+
 
         #endregion
     }

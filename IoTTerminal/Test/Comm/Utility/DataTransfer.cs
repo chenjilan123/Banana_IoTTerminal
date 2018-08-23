@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Test.Comm
+namespace Test.Comm.Utility
 {
     public class DataTransfer
     {

@@ -23,13 +23,13 @@ namespace IoTTerminal
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string defaultPlateNumber = "鄂A56789";
+        private const string defaultPlateNumber = "测B00000";
         private const byte defaultPlateColor = 2;
-        private const string defaultSimNumber = "13800000001";
-        private const string defaultTerminalID = "AB10101";
-        private string ip = "120.40.188.122";
+        private const string defaultSimNumber = "13100000000";
+        private const string defaultTerminalID = "1000000";
+        private string ip = "118.123.245.75";
         private int port = 8085;
-        private JTB1076Terminal jtb1076 = null;
+        private JTB1076Terminal jtb1076;
 
         public MainWindow()
         {

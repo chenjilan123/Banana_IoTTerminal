@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comm\Communication.cs" />
+    <Compile Include="Comm\DownOrder.cs" />
+    <Compile Include="Comm\Utility\DataDecode.cs" />
     <Compile Include="Comm\Utility\DataEncode.cs" />
     <Compile Include="Comm\Utility\DataTransfer.cs" />
     <Compile Include="Comm\UpOrder.cs" />
@@ -111,6 +113,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Comm\DownOrder.txt" />
     <Content Include="Comm\UpOrder.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
