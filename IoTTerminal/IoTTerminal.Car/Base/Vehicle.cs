@@ -42,7 +42,6 @@ namespace IoTTerminal.Car
         {
             get { return simnum; }
         }
-
         #endregion
 
         #region Constructor
