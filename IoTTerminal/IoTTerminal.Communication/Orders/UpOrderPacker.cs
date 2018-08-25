@@ -10,12 +10,16 @@ namespace IoTTerminal.Communication.Orders
 {
     public class UpOrderPacker : IUpOrderPacker
     {
+        #region Field
         private const byte identifierBit = 0x7E;
         private const byte transferBit = 0x7D;
         private readonly string simnum;
         private readonly DataEncoder encoder;
         private readonly DataDecoder decoder;
         private ushort orderID;
+        #endregion
+
+        #region Constructor
         public UpOrderPacker(string simnum)
         {
             this.simnum = simnum;
@@ -23,6 +27,9 @@ namespace IoTTerminal.Communication.Orders
             this.decoder = new DataDecoder();
             this.orderID = (ushort)DateTime.Now.Millisecond;
         }
+        #endregion
+
+        #region Packer
         /// <summary>
         /// ---------------------------------------------------------------------------------
         /// --                             Message Header                                  --
@@ -35,7 +42,7 @@ namespace IoTTerminal.Communication.Orders
         /// <param name="messageName"></param>
         /// <param name="realBody">assume no subpackage</param>
         /// <returns></returns>
-        private byte[] GetHeader(MessageID messageName, byte[] realBody)
+        private byte[] GetHeader(UpMessageID messageName, byte[] realBody)
         {
             var messageId = encoder.Encode((ushort)messageName);
             var messageProperty = encoder.Encode((ushort)realBody.Length);
@@ -64,10 +71,18 @@ namespace IoTTerminal.Communication.Orders
         }
         private void TransferMeanning(ref byte[] data)
         {
+            if (data.Length == 0)
+                return;
             if (!data.Contains(identifierBit) && !data.Contains(identifierBit))
                 return;
             var bufferLst = new List<byte>(data);
 
+            var transferIndex = bufferLst.IndexOf(transferBit);
+            while (transferIndex > 0)
+            {
+                bufferLst.Insert(transferIndex + 1, 0x01);
+                transferIndex = bufferLst.IndexOf(transferBit);
+            }
             var identifierIndex = bufferLst.IndexOf(identifierBit);
             while (identifierIndex > 0)
             {
@@ -76,49 +91,64 @@ namespace IoTTerminal.Communication.Orders
                 identifierIndex = bufferLst.IndexOf(identifierBit);
             }
 
-            var transferIndex = bufferLst.IndexOf(transferBit);
-            while (transferIndex > 0)
-            {
-                bufferLst.Insert(transferBit + 1, 0x01);
-                transferIndex = bufferLst.IndexOf(transferBit);
-            }
             data = bufferLst.ToArray();
         }
-        private byte[] GetFullPackage(byte[] body, MessageID messageName)
+        private byte[] GetFullPackage(byte[] body, UpMessageID messageName)
         {
+            if (body == null)
+                body = new byte[0];
             TransferMeanning(ref body);
             var header = GetHeader(messageName, body);
             TransferMeanning(ref header);
 
             byte[] package = new byte[3 + body.Length + header.Length];
-            byte checkCode = 0x00;
+            byte checkCode = 0x00;//If checkcode = 7e?
             foreach (var dataItem in header)
-            {
                 checkCode ^= dataItem;
-            }
             foreach (var dataItem in body)
-            {
                 checkCode ^= dataItem;
-            }
             package[0] = identifierBit;
             package[package.Length - 1] = identifierBit;
             package[package.Length - 2] = checkCode;
 
             Array.Copy(header, 0, package, 1, header.Length);
-            Array.Copy(body, 0, package, 1 + header.Length, body.Length);
+            if (body.Length > 0)
+            {
+                Array.Copy(body, 0, package, 1 + header.Length, body.Length);
+            }
             return package;
         }
+        #endregion
+
+        #region Interface
+
+        #region TerminalCommonResponse
+        public byte[] TerminalCommonResponse(ushort orderID, ushort messageID, byte result)
+        {
+            //Pack
+            var orderIDData = encoder.Encode(orderID);
+            var messageIDData = encoder.Encode(messageID);
+            //Combine
+            IList<byte[]> lst = new List<byte[]>();
+            lst.Add(orderIDData);
+            lst.Add(messageIDData);
+            lst.Add(new byte[] { result});
+            var body = GetFullData(lst);
+            return GetFullPackage(body, UpMessageID.TerminalCommonResponse);
+        }
+        #endregion
+
+        #region Register
         public byte[] Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor)
         {
-            List<byte> dataLst = new List<byte>();
-
+            //Pack
             var provice = encoder.Encode(provinceID);
             var city = encoder.Encode(cityID);
             var producer = encoder.Encode(producerID, 5);
             var terminal = encoder.Encode(terminalType, 20);
             var terminalIDData = encoder.Encode(terminalID, 7);
             var plate = encoder.EncodeString(platenum);
-
+            //Combine
             var body = new byte[provice.Length + city.Length + producer.Length + terminal.Length + terminalIDData.Length + plate.Length + 1];
             var index = 0;
             Array.Copy(provice, 0, body, index, provice.Length);
@@ -134,21 +164,37 @@ namespace IoTTerminal.Communication.Orders
             body[index] = platecolor;
             index++;
             Array.Copy(plate, 0, body, index, plate.Length);
-
-            return GetFullPackage(body, MessageID.Register);
+            return GetFullPackage(body, UpMessageID.Register);
         }
+        #endregion
+
+        #region Authentication
         public byte[] Authentication(string authenticationNumber)
         {
-            throw new NotImplementedException();
+            //Pack
+            var authData = encoder.EncodeString(authenticationNumber);
+            //Combine
+            return GetFullPackage(authData, UpMessageID.Authentication);
         }
+        #endregion
+
+        #region Heartbeat
         public byte[] Heartbeat()
         {
-            throw new NotImplementedException();
+            return GetFullPackage(null, UpMessageID.Heartbeat);
         }
+        #endregion
 
+        #region Position
         public byte[] Position()
         {
             throw new NotImplementedException();
+            //Pack
+            //Combine
         }
+
+        #endregion
+
+        #endregion
     }
 }

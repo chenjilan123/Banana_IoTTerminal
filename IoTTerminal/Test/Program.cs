@@ -56,7 +56,7 @@ namespace Test
                     break;
                 }
             }
-            var client = new Client(ipAddress.ToString(), 9099);
+            var client = new Client(ipAddress.ToString(), 9099, null);
             try
             {
                 client.Connect();

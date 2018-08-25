@@ -8,6 +8,7 @@ namespace IoTTerminal.Communication.Utinity
 {
     public class DataEncoder
     {
+        private static Encoding gb2312Encoding = Encoding.GetEncoding("gb2312");
         private byte[] ReverseInLittleEndian(byte[] data)
         {
             if (BitConverter.IsLittleEndian)
@@ -44,7 +45,7 @@ namespace IoTTerminal.Communication.Utinity
         }
         public byte[] EncodeString(string input)
         {
-            return Encoding.GetEncoding("gb2312").GetBytes(input);
+            return gb2312Encoding.GetBytes(input);
         }
 
         public byte[] EncodeBCD(string simnum, int length)

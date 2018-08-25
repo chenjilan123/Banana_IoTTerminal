@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IoTTerminal.Communication
 {
-    public class JTB808OrderProvider : IOrderProvider
+    public class JTB808OrderProvider : IUpOrderSender
     {
         #region Enumerable
         //Open to configuration file
@@ -35,9 +35,6 @@ namespace IoTTerminal.Communication
         private readonly int port;
         private readonly IDownOrderParser parser;
         private readonly IUpOrderPacker packer;
-        private string authenticationCode;
-        private bool IsRegisted = false;
-        private bool IsAuthenticated = false;
         private Client client;
         #endregion
 
@@ -48,14 +45,14 @@ namespace IoTTerminal.Communication
         #endregion
 
         #region Constructor
-        public JTB808OrderProvider(string simnum, string ip, int port)
+        public JTB808OrderProvider(string simnum, string ip, int port, IDownOrderReceiver receiver)
         {
             this.simnum = simnum;
             this.ip = ip;
             this.port = port;
-            this.client = new Client(ip, port);
-            this.parser = new DownOrderParser();
+            this.parser = new DownOrderParser(receiver);
             this.packer = new UpOrderPacker(simnum);
+            this.client = new Client(ip, port, parser);
         }
         #endregion
 
@@ -90,10 +87,6 @@ namespace IoTTerminal.Communication
             SendAsync(data);
         }
         
-        #endregion
-
-        #region Plateform Down Command
-
         #endregion
     }
 }

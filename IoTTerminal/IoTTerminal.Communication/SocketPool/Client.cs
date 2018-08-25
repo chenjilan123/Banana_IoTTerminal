@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoTTerminal.Communication.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -22,12 +23,14 @@ namespace IoTTerminal.Communication.SocketPool
         private readonly string ip;
         private readonly int port;
         private readonly DataObject dataObject;
-        public Client(string ip, int port)
+        private IMessageReceiver receiver;
+        public Client(string ip, int port, IMessageReceiver receiver)
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.ip = ip;
             this.port = port;
             this.dataObject = new DataObject();
+            this.receiver = receiver;
         }
 
         public void Connect()
@@ -53,7 +56,10 @@ namespace IoTTerminal.Communication.SocketPool
                 var count = await socket.ReceiveAsync(receiveSegment, SocketFlags.None);
                 if (count > 0)
                 {
-                    dataObject.PushData(receiveSegment.Array, count);
+                    //dataObject.PushData(receiveSegment.Array, count);
+                    byte[] data = new byte[count];
+                    Array.Copy(receiveSegment.Array, 0, data, 0, count);
+                    receiver.ReceiveMessage(data);
                 }
             }
         }
