@@ -61,30 +61,34 @@ namespace IoTTerminal.Communication
         {
             client.SendAsync(data);
         }
-        public void Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor)
+        public ushort Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor)
         {
             client.Connect();
-            var data = packer.Register(provinceID, cityID, producerID, terminalType, terminalID, platenum, platecolor);
+            var data = packer.Register(provinceID, cityID, producerID, terminalType, terminalID, platenum, platecolor, out ushort headerOrderID);
             SendAsync(data);
+            return headerOrderID;
         }
 
 
-        public void Authentication(string authenticationNumber)
+        public ushort Authentication(string authenticationNumber)
         {
-            var data = packer.Authentication(authenticationNumber);
+            var data = packer.Authentication(authenticationNumber, out ushort headerOrderID);
             SendAsync(data);
+            return headerOrderID;
         }
 
-        public void Heartbeat()
+        public ushort Heartbeat()
         {
-            var data = packer.Heartbeat();
+            var data = packer.Heartbeat(out ushort headerOrderID);
             SendAsync(data);
+            return headerOrderID;
         }
 
-        public void Position()
+        public ushort Position(double lontitude, double latitude)
         {
-            var data = packer.Position();
+            var data = packer.Position(lontitude, latitude, out ushort headerOrderID);
             SendAsync(data);
+            return headerOrderID;
         }
         
         #endregion

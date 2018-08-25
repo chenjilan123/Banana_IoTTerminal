@@ -17,7 +17,7 @@ namespace Test.Comm
         [Fact]
         public void Register_TEST()
         {
-            var package = packer.Register(1234, 123, "1233121233", "12312312ABCDE", "AB10001", "鄂A55555", 2);
+            var package = packer.Register(1234, 123, "1233121233", "12312312ABCDE", "AB10001", "鄂A55555", 2, out ushort orderID);
             var hexStr = transfer.GetHex(package);
         }
 
@@ -25,7 +25,7 @@ namespace Test.Comm
         [InlineData(1234, 4222, 0, "7E00010006013100000001XXXX04D2107D0200VV7E")] //include 7E(messageID 4222)
         public void TerminalCommonResponse_TEST(ushort orderID, ushort messageID, byte result, string expect)
         {
-            var package = packer.TerminalCommonResponse(orderID, messageID, result);
+            var package = packer.TerminalCommonResponse(orderID, messageID, result, out ushort headerOrderID);
             var resultStr = transfer.GetHex(package);
 
             ThrowExceptionIfOrderStringNotEqual(expect, resultStr);

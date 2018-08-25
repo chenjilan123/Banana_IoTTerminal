@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\OrderManageSystem.cs" />
+    <Compile Include="TerminalSystem\GpsSystem.cs" />
     <Compile Include="JTB1076Terminal.cs" />
     <Compile Include="JTB808Terminal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

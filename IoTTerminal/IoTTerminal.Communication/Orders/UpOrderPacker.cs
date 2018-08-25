@@ -42,11 +42,12 @@ namespace IoTTerminal.Communication.Orders
         /// <param name="messageName"></param>
         /// <param name="realBody">assume no subpackage</param>
         /// <returns></returns>
-        private byte[] GetHeader(UpMessageID messageName, byte[] realBody)
+        private byte[] GetHeader(UpMessageID messageName, byte[] realBody, out ushort headerOrderID)
         {
             var messageId = encoder.Encode((ushort)messageName);
             var messageProperty = encoder.Encode((ushort)realBody.Length);
             var simnumData = encoder.EncodeBCD(simnum, 12);
+            headerOrderID = orderID;
             var orderIDData = encoder.Encode(orderID++);
             IList<byte[]> lst = new List<byte[]>();
             lst.Add(messageId);
@@ -93,12 +94,12 @@ namespace IoTTerminal.Communication.Orders
 
             data = bufferLst.ToArray();
         }
-        private byte[] GetFullPackage(byte[] body, UpMessageID messageName)
+        private byte[] GetFullPackage(byte[] body, UpMessageID messageName, out ushort headerOrderID)
         {
             if (body == null)
                 body = new byte[0];
             TransferMeanning(ref body);
-            var header = GetHeader(messageName, body);
+            var header = GetHeader(messageName, body, out headerOrderID);
             TransferMeanning(ref header);
 
             byte[] package = new byte[3 + body.Length + header.Length];
@@ -123,7 +124,7 @@ namespace IoTTerminal.Communication.Orders
         #region Interface
 
         #region TerminalCommonResponse
-        public byte[] TerminalCommonResponse(ushort orderID, ushort messageID, byte result)
+        public byte[] TerminalCommonResponse(ushort orderID, ushort messageID, byte result, out ushort headerOrderID)
         {
             //Pack
             var orderIDData = encoder.Encode(orderID);
@@ -134,12 +135,12 @@ namespace IoTTerminal.Communication.Orders
             lst.Add(messageIDData);
             lst.Add(new byte[] { result});
             var body = GetFullData(lst);
-            return GetFullPackage(body, UpMessageID.TerminalCommonResponse);
+            return GetFullPackage(body, UpMessageID.TerminalCommonResponse, out headerOrderID);
         }
         #endregion
 
         #region Register
-        public byte[] Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor)
+        public byte[] Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor, out ushort headerOrderID)
         {
             //Pack
             var provice = encoder.Encode(provinceID);
@@ -164,33 +165,40 @@ namespace IoTTerminal.Communication.Orders
             body[index] = platecolor;
             index++;
             Array.Copy(plate, 0, body, index, plate.Length);
-            return GetFullPackage(body, UpMessageID.Register);
+            return GetFullPackage(body, UpMessageID.Register, out headerOrderID);
         }
         #endregion
 
         #region Authentication
-        public byte[] Authentication(string authenticationNumber)
+        public byte[] Authentication(string authenticationNumber, out ushort headerOrderID)
         {
             //Pack
             var authData = encoder.EncodeString(authenticationNumber);
             //Combine
-            return GetFullPackage(authData, UpMessageID.Authentication);
+            return GetFullPackage(authData, UpMessageID.Authentication, out headerOrderID);
         }
         #endregion
 
         #region Heartbeat
-        public byte[] Heartbeat()
+        public byte[] Heartbeat(out ushort headerOrderID)
         {
-            return GetFullPackage(null, UpMessageID.Heartbeat);
+            return GetFullPackage(null, UpMessageID.Heartbeat, out headerOrderID);
         }
         #endregion
 
         #region Position
-        public byte[] Position()
+        public byte[] Position(double lontitude, double latitude, out ushort headerOrderID)
         {
-            throw new NotImplementedException();
             //Pack
+
+
             //Combine
+            IList<byte[]> lst = new List<byte[]>();
+            //lst.Add(orderIDData);
+            //lst.Add(messageIDData);
+            //lst.Add(new byte[] { result });
+            var body = GetFullData(lst);
+            return GetFullPackage(body, UpMessageID.Position, out headerOrderID);
         }
 
         #endregion

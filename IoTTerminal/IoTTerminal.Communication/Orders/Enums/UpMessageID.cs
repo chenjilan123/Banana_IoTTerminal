@@ -14,5 +14,6 @@ namespace IoTTerminal.Communication.Orders
         Logout = 0x0003,
         Register = 0x0100,
         Authentication = 0x0102,
+        Position = 0x0200,
     }
 }
