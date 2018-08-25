@@ -6,5 +6,8 @@
         xmlns:local="clr-namespace:IoTTerminal"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Icon="Sources/Icons/plane.ico">
-    <Button Content="I'm a Register" HorizontalAlignment="Left" Margin="217,63,0,0" VerticalAlignment="Top" Width="153" Height="41" Click="Button_Click"/>
+    <Grid>
+        <Button Content="I'm a Register" HorizontalAlignment="Left" Margin="169,63,0,0" VerticalAlignment="Top" Width="109" Height="28" Click="Button_Click"/>
+        <Button Content="Position" HorizontalAlignment="Left" Margin="292,63,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="Button_Click_1"/>
+    </Grid>
 </Window>

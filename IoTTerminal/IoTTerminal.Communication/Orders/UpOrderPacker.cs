@@ -187,16 +187,28 @@ namespace IoTTerminal.Communication.Orders
         #endregion
 
         #region Position
-        public byte[] Position(double lontitude, double latitude, out ushort headerOrderID)
+        public byte[] Position(uint alarmFlag, uint status, uint lontitude, uint latitude, ushort height, ushort speed, ushort direction, string time, out ushort headerOrderID)
         {
             //Pack
-
-
+            var alarmData = encoder.Encode(alarmFlag);
+            var statusData = encoder.Encode(status);
+            var longitudeData = encoder.Encode(lontitude);
+            var latitudeData = encoder.Encode(latitude);
+            var heightData = encoder.Encode(height);
+            var speedData = encoder.Encode(speed);
+            var directionData = encoder.Encode(direction);
+            var timeData = encoder.EncodeBCD(time, 6);
             //Combine
             IList<byte[]> lst = new List<byte[]>();
-            //lst.Add(orderIDData);
-            //lst.Add(messageIDData);
-            //lst.Add(new byte[] { result });
+            lst.Add(alarmData);
+            lst.Add(statusData);
+            lst.Add(longitudeData);
+            lst.Add(latitudeData);
+            lst.Add(heightData);
+            lst.Add(speedData);
+            lst.Add(directionData);
+            lst.Add(timeData);
+
             var body = GetFullData(lst);
             return GetFullPackage(body, UpMessageID.Position, out headerOrderID);
         }

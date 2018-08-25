@@ -6,6 +6,6 @@
         byte[] Register(ushort provinceID, ushort cityID, string producerID, string terminalType, string terminalID, string platenum, byte platecolor, out ushort headerOrderID);
         byte[] Authentication(string authenticationNumber, out ushort headerOrderID);
         byte[] Heartbeat(out ushort headerOrderID);
-        byte[] Position(double lontitude, double latitude, out ushort headerOrderID);
+        byte[] Position(uint alarmFlag, uint status, uint lontitude, uint latitude, ushort height, ushort speed, ushort direction, string time, out ushort headerOrderID);
     }
 }

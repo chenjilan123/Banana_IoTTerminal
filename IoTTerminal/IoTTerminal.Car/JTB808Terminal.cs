@@ -99,7 +99,7 @@ namespace IoTTerminal.Car
         public void Position()
         {
             (double lon, double lat) = gpsSystem.NextPosition();
-            var orderID = iOrderProvider.Position(lon, lat);
+            var orderID = iOrderProvider.Position(0, 0, (uint)(lon * 1000000), (uint)(lat * 1000000), 0, 70, 0, DateTime.Now.ToString("yyMMddHHmmss"));
         }
         #endregion
 

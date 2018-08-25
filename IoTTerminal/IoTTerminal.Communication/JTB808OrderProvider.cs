@@ -84,9 +84,9 @@ namespace IoTTerminal.Communication
             return headerOrderID;
         }
 
-        public ushort Position(double lontitude, double latitude)
+        public ushort Position(uint alarmFlag, uint status, uint lontitude, uint latitude, ushort height, ushort speed, ushort direction, string time)
         {
-            var data = packer.Position(lontitude, latitude, out ushort headerOrderID);
+            var data = packer.Position(alarmFlag, status, lontitude, latitude, height, speed, direction, time, out ushort headerOrderID);
             SendAsync(data);
             return headerOrderID;
         }

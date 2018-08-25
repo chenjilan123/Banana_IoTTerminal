@@ -15,8 +15,8 @@ namespace Test
     {
         static void Main()
         {
-            JTB808Terminal terminal = new JTB808Terminal("218.5.10.82", 21005, "鄂A56789", 2, "13800000001", "A100001");
-            terminal.Register();
+            var timeStr = DateTime.Now.ToString("yyMMddHHmmss");
+            Console.WriteLine(timeStr);
 
             Console.ReadLine();
         }

@@ -9,7 +9,7 @@ namespace IoTTerminal.Communication.Utinity
     public class DataEncoder
     {
         private static Encoding gb2312Encoding = Encoding.GetEncoding("gb2312");
-        private byte[] ReverseInLittleEndian(byte[] data)
+        private byte[] ReverseToBigEndian(byte[] data)
         {
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(data);
@@ -17,23 +17,23 @@ namespace IoTTerminal.Communication.Utinity
         }
         public byte[] Encode(int input)
         {
-            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+            return ReverseToBigEndian(BitConverter.GetBytes(input));
         }
         public byte[] Encode(long input)
         {
-            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+            return ReverseToBigEndian(BitConverter.GetBytes(input));
         }
         public byte[] Encode(uint input)
         {
-            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+            return ReverseToBigEndian(BitConverter.GetBytes(input));
         }
         public byte[] Encode(ushort input)
         {
-            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+            return ReverseToBigEndian(BitConverter.GetBytes(input));
         }
         public byte[] Encode(short input)
         {
-            return ReverseInLittleEndian(BitConverter.GetBytes(input));
+            return ReverseToBigEndian(BitConverter.GetBytes(input));
         }
         public byte[] Encode(string input, int length, bool padLeft = false)
         {
