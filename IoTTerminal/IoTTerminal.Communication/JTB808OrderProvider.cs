@@ -77,6 +77,12 @@ namespace IoTTerminal.Communication
             return headerOrderID;
         }
 
+        public ushort Logout()
+        {
+            var data = packer.Logout(out ushort headerOrderID);
+            SendAsync(data);
+            return headerOrderID;
+        }
         public ushort Heartbeat()
         {
             var data = packer.Heartbeat(out ushort headerOrderID);

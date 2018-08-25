@@ -35,7 +35,7 @@ namespace IoTTerminal.Car
         #region Field
         private readonly IUpOrderSender iOrderProvider;
         private readonly OrderManageSystem orderManageSystem;
-        private readonly GpsSystem gpsSystem;
+        private readonly GNSSSystem gnssSystem;
         private readonly Timer heartTimer;
         private bool isRegisted = false;
         private bool isAuthenticated = false;
@@ -54,8 +54,8 @@ namespace IoTTerminal.Car
         {
             iOrderProvider = OrderProviderFactory.CreateOrderProvider(simnum, ip, port, this);
             orderManageSystem = new OrderManageSystem(this);
-            gpsSystem = new GpsSystem();
-            heartTimer = new Timer(3000);
+            gnssSystem = new GNSSSystem();
+            heartTimer = new Timer(30000);
             heartTimer.Elapsed += HeartTimer_Elapsed; ;
         }
 
@@ -95,10 +95,19 @@ namespace IoTTerminal.Car
         }
         #endregion
 
+        #region Logout
+
+        public void Logout()
+        {
+            var orderID = iOrderProvider.Logout();
+            orderManageSystem.AddOrder(orderID, OrderMap[nameof(PlatCommonResponse)]);
+        }
+        #endregion
+
         #region Position
         public void Position()
         {
-            (double lon, double lat) = gpsSystem.NextPosition();
+            (double lon, double lat) = gnssSystem.NextPosition();
             var orderID = iOrderProvider.Position(0, 0, (uint)(lon * 1000000), (uint)(lat * 1000000), 0, 70, 0, DateTime.Now.ToString("yyMMddHHmmss"));
         }
         #endregion
@@ -129,8 +138,6 @@ namespace IoTTerminal.Car
         }
         #endregion
 
-        #endregion
-
         #region IsResponse
         private bool IsResponse(ushort responseOrderID, string methodName)
         {
@@ -141,5 +148,8 @@ namespace IoTTerminal.Car
             return orderManageSystem.IsResponse(responseOrderID, OrderMap[methodName]);
         }
         #endregion
+
+        #endregion
+
     }
 }

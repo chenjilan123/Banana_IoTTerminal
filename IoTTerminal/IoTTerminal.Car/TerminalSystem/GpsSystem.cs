@@ -3,11 +3,11 @@ using System.Timers;
 
 namespace IoTTerminal.Car.TerminalSystem
 {
-    public class GpsSystem
+    public class GNSSSystem
     {
         private readonly Timer positionTimer;
         private Action delPosition;
-        public GpsSystem()
+        public GNSSSystem()
         {
             positionTimer = new Timer(30000);
             positionTimer.Elapsed += PositionTimer_Elapsed;

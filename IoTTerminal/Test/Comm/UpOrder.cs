@@ -31,7 +31,15 @@ namespace Test.Comm
             ThrowExceptionIfOrderStringNotEqual(expect, resultStr);
         }
 
+        [Theory]
+        [InlineData(0, 0, (uint)(126.511001 * 1000000), (uint)(27.1288212 * 1000000), 0, 70, 0)]
+        public void Position(uint alarmFlag, uint status, uint lontitude, uint latitude, ushort height, ushort speed, ushort direction)
+        {
+            var time = DateTime.Now.ToString("yyMMddHHmmss");
+            var package = packer.Position(alarmFlag, status, lontitude, latitude, height, speed, direction, time, out ushort headerOrderID);
 
+            var resultStr = transfer.GetHex(package);
+        }
         private void ThrowExceptionIfOrderStringNotEqual(string expect, string actual)
         {
             var orderIDIndex = expect.IndexOf("XXXX");

@@ -197,7 +197,7 @@ namespace IoTTerminal.Communication.Orders
             var heightData = encoder.Encode(height);
             var speedData = encoder.Encode(speed);
             var directionData = encoder.Encode(direction);
-            var timeData = encoder.EncodeBCD(time, 6);
+            var timeData = encoder.EncodeBCD(time, 12);
             //Combine
             IList<byte[]> lst = new List<byte[]>();
             lst.Add(alarmData);
@@ -211,6 +211,13 @@ namespace IoTTerminal.Communication.Orders
 
             var body = GetFullData(lst);
             return GetFullPackage(body, UpMessageID.Position, out headerOrderID);
+        }
+        #endregion
+
+        #region Logout
+        public byte[] Logout(out ushort headerOrderID)
+        {
+            return GetFullPackage(null, UpMessageID.Logout, out headerOrderID);
         }
 
         #endregion

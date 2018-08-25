@@ -50,5 +50,11 @@ namespace IoTTerminal
         {
             jtb1076?.Position();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (jtb1076.IsRegisted)
+                jtb1076.Logout();
+        }
     }
 }

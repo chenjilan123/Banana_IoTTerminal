@@ -11,6 +11,7 @@ namespace IoTTerminal.Car
         #region Constructor
         public JTB1076Terminal(string ip, int port, string platenum, byte platecolor, string simnum, string terminalID)
             : base(ip, port, platenum, platecolor, simnum, terminalID) { }
+
         #endregion
     }
 }
