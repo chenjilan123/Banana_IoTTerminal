@@ -10,9 +10,17 @@ namespace IoTTerminal.Communication.Utinity
     {
         public static string GetHexStr(byte[] data)
         {
-            var sb = new StringBuilder(data.Length * 2);
-            foreach (var b in data)
-                sb.Append(b.ToString("X2"));
+            return GetHexStr(data, data.Length);
+            //var sb = new StringBuilder(data.Length * 2);
+            //foreach (var b in data)
+            //    sb.Append(b.ToString("X2"));
+            //return sb.ToString();
+        }
+        public static string GetHexStr(byte[] data, int length)
+        {
+            var sb = new StringBuilder(length * 2);
+            for(int i = 0; i < length; i++)
+                sb.Append(data[i].ToString("X2"));
             return sb.ToString();
         }
 

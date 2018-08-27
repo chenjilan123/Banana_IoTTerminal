@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Test.Video;
 
 namespace Test
 {
@@ -15,8 +16,7 @@ namespace Test
     {
         static void Main()
         {
-            var timeStr = DateTime.Now.ToString("yyMMddHHmmss");
-            Console.WriteLine(timeStr);
+            Mpeg4InH264.Load();
 
             Console.ReadLine();
         }

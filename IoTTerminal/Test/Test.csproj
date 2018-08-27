@@ -83,6 +83,7 @@
     <Compile Include="Comm\UpOrder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Video\Mpeg4InH264.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -115,6 +116,9 @@
   <ItemGroup>
     <Content Include="Comm\DownOrder.txt" />
     <Content Include="Comm\UpOrder.txt" />
+    <Content Include="Src\Taylor Swift-Style.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
