@@ -43,12 +43,12 @@ namespace IoTTerminal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            jtb1076?.Register();
+            jtb1076.Register();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            jtb1076?.Position();
+            jtb1076.Position();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

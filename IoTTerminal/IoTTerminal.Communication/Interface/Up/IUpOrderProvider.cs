@@ -1,6 +1,8 @@
-﻿namespace IoTTerminal.Communication.Interface
+﻿using IoTTerminal.Model;
+
+namespace IoTTerminal.Communication.Interface
 {
-    public interface IUpOrderSender
+    public interface IUpOrderProvider
     {
         string SimNum { get; }
         string Ip { get; }
@@ -10,5 +12,6 @@
         ushort Logout();
         ushort Heartbeat();
         ushort Position(uint alarmFlag, uint status, uint lontitude, uint latitude, ushort height, ushort speed, ushort direction, string time);
+        ushort UpCommand(Command command);
     }
 }

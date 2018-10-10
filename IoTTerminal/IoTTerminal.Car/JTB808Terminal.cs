@@ -33,7 +33,7 @@ namespace IoTTerminal.Car
         #endregion
 
         #region Field
-        private readonly IUpOrderSender iOrderProvider;
+        private readonly IUpOrderProvider iOrderProvider;
         private readonly OrderManageSystem orderManageSystem;
         private readonly GNSSSystem gnssSystem;
         private readonly Timer heartTimer;
@@ -56,7 +56,7 @@ namespace IoTTerminal.Car
             orderManageSystem = new OrderManageSystem(this);
             gnssSystem = new GNSSSystem();
             heartTimer = new Timer(30000);
-            heartTimer.Elapsed += HeartTimer_Elapsed; ;
+            heartTimer.Elapsed += HeartTimer_Elapsed;
         }
 
         private void HeartTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -123,6 +123,7 @@ namespace IoTTerminal.Car
                 return;
             this.authenticationCode = authentication;
             this.isRegisted = (result == 0);
+            if (!this.isRegisted) return;
             //Auth 
             this.Authentication();
             this.heartTimer.Enabled = true;
@@ -134,7 +135,6 @@ namespace IoTTerminal.Car
         {
             if (!IsResponse(responseOrderID, nameof(PlatCommonResponse)))
                 return;
-
         }
         #endregion
 

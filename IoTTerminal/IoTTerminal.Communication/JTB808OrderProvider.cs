@@ -1,6 +1,7 @@
 ﻿using IoTTerminal.Communication.Interface;
 using IoTTerminal.Communication.Orders;
 using IoTTerminal.Communication.SocketPool;
+using IoTTerminal.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IoTTerminal.Communication
 {
-    public class JTB808OrderProvider : IUpOrderSender
+    public class JTB808OrderProvider : IUpOrderProvider
     {
         #region Enumerable
         //Open to configuration file
@@ -45,14 +46,14 @@ namespace IoTTerminal.Communication
         #endregion
 
         #region Constructor
-        public JTB808OrderProvider(string simnum, string ip, int port, IDownOrderReceiver receiver)
+        public JTB808OrderProvider(string simnum, string ip, int port, IDownOrderParser parser, IUpOrderPacker packer, Client client)
         {
             this.simnum = simnum;
             this.ip = ip;
             this.port = port;
-            this.parser = new DownOrderParser(receiver);
-            this.packer = new UpOrderPacker(simnum);
-            this.client = new Client(ip, port, parser);
+            this.parser = parser;
+            this.packer = packer;
+            this.client = client;
         }
         #endregion
 
@@ -96,7 +97,12 @@ namespace IoTTerminal.Communication
             SendAsync(data);
             return headerOrderID;
         }
-        
+
+        public ushort UpCommand(Command command)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

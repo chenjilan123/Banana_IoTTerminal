@@ -19,11 +19,15 @@ namespace Test.Comm
         }
 
         #region Interface
+        [Theory]
+        [InlineData(0, 0)]
         public void PlatCommonResponse(ushort responseOrderID, byte result)
         {
             throw new NotImplementedException();
         }
 
+        [Theory]
+        [InlineData(0, 0, "")]
         public void RegisterResponse(ushort responseOrderID, byte result, string authentication)
         {
             throw new NotImplementedException();

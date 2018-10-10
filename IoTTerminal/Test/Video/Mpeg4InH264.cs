@@ -14,7 +14,7 @@ namespace Test.Video
         public static async void Load()
         {
             var data = new byte[200 * bufferLength];
-            var total = 0l;
+            var total = 0L;
             using (var stream = new FileStream($".\\Src\\Taylor Swift-Style.mp4", FileMode.Open, FileAccess.Read))
             {
                 var buffer = new byte[bufferLength];

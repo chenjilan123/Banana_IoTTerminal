@@ -114,6 +114,11 @@ namespace IoTTerminal.Communication.Orders
             var authentication = decoder.DecodeToString(authData);
             receiver.RegisterResponse(responseOrderID, result, authentication);
         }
+
+        public void DownCommand(ushort orderID, byte[] body)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
