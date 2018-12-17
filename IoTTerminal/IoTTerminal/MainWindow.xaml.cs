@@ -36,10 +36,11 @@ namespace IoTTerminal
             InitializeComponent();
 
             //如果是长时间操作，别放这里，应放加载事件。
-            IoTContainer.Register();
-            jtb1076 = new JTB1076Terminal(ip, port, defaultPlateNumber, defaultPlateColor, defaultSimNumber, defaultTerminalID);
+            //IoTContainer.Register();
+            //jtb1076 = new JTB1076Terminal(ip, port, defaultPlateNumber, defaultPlateColor, defaultSimNumber, defaultTerminalID);
+            jtb1076 = new JTB1076Terminal("192.168.3.87", 9926, defaultPlateNumber, defaultPlateColor, "13111111124", defaultTerminalID);
         }
-        
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

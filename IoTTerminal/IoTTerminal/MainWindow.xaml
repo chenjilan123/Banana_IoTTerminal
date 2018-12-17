@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IoTTerminal"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="Sources/Icons/plane.ico" Closing="Window_Closing">
+        Title="" Height="88.144" Width="227.835" Icon="Sources/Icons/plane.ico" Closing="Window_Closing">
     <Grid>
-        <Button Content="I'm a Register" HorizontalAlignment="Left" Margin="169,63,0,0" VerticalAlignment="Top" Width="109" Height="28" Click="Button_Click"/>
-        <Button Content="Position" HorizontalAlignment="Left" Margin="292,63,0,0" VerticalAlignment="Top" Width="75" Height="28" Click="Button_Click_1"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260*"/>
+            <ColumnDefinition Width="11*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="I'm a Register" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="109" Height="28" Click="Button_Click"/>
+        <Button Content="Position" HorizontalAlignment="Left" Margin="124,10,0,0" VerticalAlignment="Top" Width="70" Height="28" Click="Button_Click_1"/>
     </Grid>
 </Window>
